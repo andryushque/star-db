@@ -1,12 +1,9 @@
-const getResourse = async (url) => {
-  const res = await fetch(url);
-  const body = await res.json();
-  return body;
-}
+import { baseUrl } from "./configs/config";
+import { getResourse } from "./configs/utils";
 
-const url = 'https://swapi.dev/api/people/1';
+// test
+const url = `${baseUrl}api/people/1`;
 
-getResourse(url)
-  .then((body) => {
-    console.log(body);
-  })
+getResourse(url).then((body) => {
+  console.log("test", body);
+});
