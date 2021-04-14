@@ -15,6 +15,7 @@ import {
 import ErrorButton from "../error-button";
 import ErrorIndicator from "../error-indicator";
 
+import { SwapiServiceProvider } from "../swapi-service-context";
 import SwapiService from "../../services/swapi-service";
 import "./app.css";
 
@@ -57,37 +58,39 @@ export default class App extends Component {
     );
 
     return (
-      <div className="stardb-app container-fluid">
-        <Header />
+      <SwapiServiceProvider value={this.swapiService}>
+        <div className="stardb-app container-fluid">
+          <Header />
 
-        {randomPlanet}
-        {randomPlanetToggleButton}
+          {randomPlanet}
+          {randomPlanetToggleButton}
 
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <PersonList />
+          <div className="row mb-4">
+            <div className="col-md-6">
+              <PersonList />
+            </div>
+            <div className="col-md-6">
+              <PersonDetails itemId={11} />
+            </div>
           </div>
-          <div className="col-md-6">
-            <PersonDetails itemId={11} />
+          <div className="row mb-4">
+            <div className="col-md-6">
+              <PlanetList />
+            </div>
+            <div className="col-md-6">
+              <PlanetDetails itemId={2} />
+            </div>
+          </div>
+          <div className="row mb-4">
+            <div className="col-md-6">
+              <StarshipList />
+            </div>
+            <div className="col-md-6">
+              <StarshipDetails itemId={9} />
+            </div>
           </div>
         </div>
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <PlanetList />
-          </div>
-          <div className="col-md-6">
-            <PlanetDetails itemId={2} />
-          </div>
-        </div>
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <StarshipList />
-          </div>
-          <div className="col-md-6">
-            <StarshipDetails itemId={9} />
-          </div>
-        </div>
-      </div>
+      </SwapiServiceProvider>
     );
   }
 }
