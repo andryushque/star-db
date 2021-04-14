@@ -1,1 +1,1 @@
-export { default } from "./item-details";
+export { default, Record } from "./item-details";
