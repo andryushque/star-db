@@ -4,7 +4,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "../header";
 import RandomPlanet from "../random-planet";
-import { PeoplePage, PlanetsPage, StarshipsPage } from "../pages";
+import {
+  PeoplePage,
+  PlanetsPage,
+  StarshipsPage,
+  SecretPage,
+  LoginPage,
+} from "../pages";
 import { StarshipDetails } from "../sw-components";
 
 import ErrorBoundry from "../error-boundry";
@@ -17,6 +23,13 @@ import "./app.css";
 export default class App extends Component {
   state = {
     swapiService: new SwapiService(),
+    isLoggedIn: false,
+  };
+
+  onLogin = () => {
+    this.setState({
+      isLoggedIn: true,
+    });
   };
 
   onServiceChange = () => {
@@ -31,6 +44,8 @@ export default class App extends Component {
   };
 
   render() {
+    const { isLoggedIn } = this.state;
+
     return (
       <ErrorBoundry>
         <SwapiServiceProvider value={this.state.swapiService}>
@@ -69,6 +84,18 @@ export default class App extends Component {
                   const { id } = match.params;
                   return <StarshipDetails itemId={id} />;
                 }}
+                exact
+              />
+              <Route
+                path="/login"
+                render={() => (
+                  <LoginPage isLoggedIn={isLoggedIn} onLogin={this.onLogin} />
+                )}
+                exact
+              />
+              <Route
+                path="/secret"
+                render={() => <SecretPage isLoggedIn={isLoggedIn} />}
                 exact
               />
             </div>
